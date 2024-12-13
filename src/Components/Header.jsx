@@ -14,7 +14,7 @@ import Logo from "../assets/Logo.png";
 import { BiPlus } from "react-icons/bi";
 
 const Header = () => {
-  // State for controlling the modal visibility
+  
   const [openModal, setOpenModal] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -32,13 +32,9 @@ const Header = () => {
     TargetDate: "",
   });
 
-  // Open modal function
   const handleOpen = () => setOpenModal(true);
-
-  // Close modal function
   const handleClose = () => setOpenModal(false);
 
-  // Handle input change for form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -47,7 +43,6 @@ const Header = () => {
     });
   };
 
-  // Handle form submission
   const handleSubmit = () => {
     console.log("New Intern Data: ", formData);
     setOpenModal(false);
