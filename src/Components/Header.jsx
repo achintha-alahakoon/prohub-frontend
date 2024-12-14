@@ -64,7 +64,7 @@ const Header = () => {
         variant="h4"
         sx={{ fontWeight: "bold", fontFamily: "sans-serif" }}
       >
-        All Interns
+        All Trainees
       </Typography>
 
       <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
@@ -96,7 +96,7 @@ const Header = () => {
         sx={{
           "& .MuiDialog-paper": {
             width: "1200px",
-            height: "80%",
+            height: "85%",
             maxWidth: "none",
           },
           "& .MuiBackdrop-root": {
@@ -105,10 +105,10 @@ const Header = () => {
           },
         }}
       >
-        <DialogTitle>Add New Intern</DialogTitle>
+        <DialogTitle>Add New Trainees</DialogTitle>
         <DialogContent>
           <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={2}>
+            <Grid container spacing={3}>
               <Grid item xs={6}>
                 <TextField
                   label="Name"
@@ -167,23 +167,31 @@ const Header = () => {
               <Grid item xs={6}>
                 <TextField
                   label="Training Start Date"
+                  type="date"
                   variant="standard"
                   fullWidth
                   name="TrainingStartDate"
                   value={formData.TrainingStartDate}
                   onChange={handleInputChange}
                   required
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                 />
               </Grid>
               <Grid item xs={6}>
                 <TextField
                   label="Training End Date"
+                  type="date"
                   variant="standard"
                   fullWidth
                   name="TrainingEndDate"
                   value={formData.TrainingEndDate}
                   onChange={handleInputChange}
                   required
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -244,12 +252,16 @@ const Header = () => {
               <Grid item xs={6}>
                 <TextField
                   label="Target Date"
+                  type="date"
                   variant="standard"
                   fullWidth
                   name="TargetDate"
                   value={formData.TargetDate}
                   onChange={handleInputChange}
                   required
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                 />
               </Grid>
             </Grid>
@@ -260,7 +272,7 @@ const Header = () => {
             Cancel
           </Button>
           <Button onClick={handleSubmit} color="primary" variant="contained">
-            Add Intern
+            Add Trainee
           </Button>
         </DialogActions>
       </Dialog>
