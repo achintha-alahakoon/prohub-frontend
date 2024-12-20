@@ -6,12 +6,12 @@ import Header from "./Components/Header";
 function App() {
   return (
     <div>
-      <div style={{ display: "flex", flexDirection: "column", width: "1500px" }}>
+      <div style={{ display: "flex", flexDirection: "column", width: "1520px" }}>
         <Header />
       </div>
 
       <div
-        style={{ display: "flex", flexDirection: "column", width: "1500px" }}
+        style={{ display: "flex", flexDirection: "column", width: "1520px" }}
       >
         <AllInterns />
       </div>

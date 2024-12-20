@@ -18,18 +18,18 @@ const Header = () => {
   const [openModal, setOpenModal] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
-    TellNo: "",
+    mobile: "",
     nic: "",
-    Email: "",
-    Address: "",
-    TrainingStartDate: "",
-    TrainingEndDate: "",
-    Institute: "",
-    LanguagesKnown: "",
-    FieldofSpecialization: "",
-    Supervisor: "",
-    AssignedWork: "",
-    TargetDate: "",
+    email: "",
+    address: "",
+    trainingStartDate: "",
+    trainingEndDate: "",
+    institute: "",
+    languagesKnown: "",
+    fieldOfSpecialization: "",
+    supervisor: "",
+    assignedWork: "",
+    targetDate: "",
   });
 
   const handleOpen = () => setOpenModal(true);
@@ -122,11 +122,11 @@ const Header = () => {
               </Grid>
               <Grid item xs={6}>
                 <TextField
-                  label="Tell No"
+                  label="Mobile"
                   variant="standard"
                   fullWidth
-                  name="TellNo"
-                  value={formData.TellNo}
+                  name="mobile"
+                  value={formData.mobile}
                   onChange={handleInputChange}
                   required
                 />
@@ -147,8 +147,8 @@ const Header = () => {
                   label="Email"
                   variant="standard"
                   fullWidth
-                  name="Email"
-                  value={formData.Email}
+                  name="email"
+                  value={formData.email}
                   onChange={handleInputChange}
                   required
                 />
@@ -158,8 +158,8 @@ const Header = () => {
                   label="Home Address"
                   variant="standard"
                   fullWidth
-                  name="Address"
-                  value={formData.Address}
+                  name="address"
+                  value={formData.address}
                   onChange={handleInputChange}
                   required
                 />
@@ -170,8 +170,8 @@ const Header = () => {
                   type="date"
                   variant="standard"
                   fullWidth
-                  name="TrainingStartDate"
-                  value={formData.TrainingStartDate}
+                  name="trainingStartDate"
+                  value={formData.trainingStartDate}
                   onChange={handleInputChange}
                   required
                   InputLabelProps={{
@@ -185,8 +185,8 @@ const Header = () => {
                   type="date"
                   variant="standard"
                   fullWidth
-                  name="TrainingEndDate"
-                  value={formData.TrainingEndDate}
+                  name="trainingEndDate"
+                  value={formData.trainingEndDate}
                   onChange={handleInputChange}
                   required
                   InputLabelProps={{
@@ -199,8 +199,8 @@ const Header = () => {
                   label="Institute"
                   variant="standard"
                   fullWidth
-                  name="Institute"
-                  value={formData.Institute}
+                  name="institute"
+                  value={formData.institute}
                   onChange={handleInputChange}
                   required
                 />
@@ -210,8 +210,8 @@ const Header = () => {
                   label="Languages Known"
                   variant="standard"
                   fullWidth
-                  name="LanguagesKnown"
-                  value={formData.LanguagesKnown}
+                  name="languagesKnown"
+                  value={formData.languagesKnown}
                   onChange={handleInputChange}
                   required
                 />
@@ -221,8 +221,8 @@ const Header = () => {
                   label="Field of Specialization"
                   variant="standard"
                   fullWidth
-                  name="FieldofSpecialization"
-                  value={formData.FieldofSpecialization}
+                  name="fieldofSpecialization"
+                  value={formData.fieldofSpecialization}
                   onChange={handleInputChange}
                   required
                 />
@@ -232,8 +232,8 @@ const Header = () => {
                   label="Supervisor"
                   variant="standard"
                   fullWidth
-                  name="Supervisor"
-                  value={formData.Supervisor}
+                  name="supervisor"
+                  value={formData.supervisor}
                   onChange={handleInputChange}
                   required
                 />
@@ -243,8 +243,8 @@ const Header = () => {
                   label="Assigned Work"
                   variant="standard"
                   fullWidth
-                  name="AssignedWork"
-                  value={formData.AssignedWork}
+                  name="assignedWork"
+                  value={formData.assignedWork}
                   onChange={handleInputChange}
                   required
                 />
@@ -255,8 +255,8 @@ const Header = () => {
                   type="date"
                   variant="standard"
                   fullWidth
-                  name="TargetDate"
-                  value={formData.TargetDate}
+                  name="targetDate"
+                  value={formData.targetDate}
                   onChange={handleInputChange}
                   required
                   InputLabelProps={{
