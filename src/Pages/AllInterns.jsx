@@ -14,7 +14,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const getColumns = (handleEditClick) => [
+const getColumns = (handleEditClick, handleDeleteClick) => [
   { field: "id", headerName: "Trainee_ID", width: 95 },
   { field: "name", headerName: "Name", width: 180 },
   {
@@ -60,7 +60,8 @@ const getColumns = (handleEditClick) => [
         >
           <EditIcon style={{ width: 17, height: 17 }} />
         </IconButton>
-        <IconButton aria-label="delete" style={{ color: "red" }}>
+        <IconButton aria-label="delete" style={{ color: "red" }}
+        onClick={() => handleDeleteClick(params.row)}>
           <DeleteIcon style={{ width: 17, height: 17 }} />
         </IconButton>
       </div>
@@ -88,13 +89,36 @@ const AllInterns = () => {
 
     const interval = setInterval(fetchInterns, 1000);
     return () => clearInterval(interval);
-    
+
   }, []);
 
   const handleEditClick = (row) => {
     setEditData(row);
     setIsEditing(true);
   };
+
+  const handleDeleteClick = async (row) => {
+    const confirmation = window.confirm(`Are you sure you want to delete the intern with ID ${row.id}?`);
+    if (!confirmation) return;
+  
+    try {
+      const response = await fetch(`http://localhost:8080/api/interns/${row.id}`, {
+        method: "DELETE",
+      });
+  
+      if (response.ok) {
+        // If deletion is successful, remove the intern from the state
+        setInterns((prevInterns) => prevInterns.filter((intern) => intern.id !== row.id));
+        alert("Intern deleted successfully.");
+      } else {
+        alert("Failed to delete intern.");
+      }
+    } catch (error) {
+      console.error("Error deleting intern:", error);
+      alert("An error occurred while trying to delete the intern.");
+    }
+  };
+  
 
   const handleClose = () => {
     setIsEditing(false);
@@ -119,7 +143,7 @@ const AllInterns = () => {
       <Box sx={{ height: 550, width: "95%", margin: "auto" }}>
         <DataGrid
           rows={interns}
-          columns={getColumns(handleEditClick)}
+          columns={getColumns(handleEditClick, handleDeleteClick)}
           getRowHeight={() => 75}
           initialState={{
             pagination: {
