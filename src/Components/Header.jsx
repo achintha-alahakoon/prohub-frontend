@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -22,11 +22,11 @@ const Header = () => {
     nic: "",
     email: "",
     address: "",
-    trainingStartDate: "",
-    trainingEndDate: "",
+    startDate: "",
+    endDate: "",
     institute: "",
     languagesKnown: "",
-    fieldOfSpecialization: "",
+    field: "",
     supervisor: "",
     assignedWork: "",
     targetDate: "",
@@ -44,9 +44,61 @@ const Header = () => {
   };
 
   const handleSubmit = () => {
-    console.log("New Intern Data: ", formData);
-    setOpenModal(false);
-  };
+    
+    const requiredFields = [
+      "name",
+      "mobile",
+      "nic",
+      "email",
+      "address",
+      "startDate",
+      "endDate",
+      "institute",
+      "field",
+      "supervisor",
+      "assignedWork",
+      "targetDate",
+    ];
+  
+    const isValid = requiredFields.every((field) => formData[field].trim() !== "");
+  
+    if (!isValid) {
+      alert("Please fill all required fields.");
+      return;
+    }
+  
+    try {
+      fetch("http://localhost:8080/api/interns", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Intern added successfully:", data);
+          setOpenModal(false);
+          setFormData({
+            name: "",
+            mobile: "",
+            nic: "",
+            email: "",
+            address: "",
+            startDate: "",
+            endDate: "",
+            institute: "",
+            languagesKnown: "",
+            field: "",
+            supervisor: "",
+            assignedWork: "",
+            targetDate: "",
+          });
+        });
+    } catch (error) {
+      console.error("Error adding intern:", error);
+    }
+  };  
 
   return (
     <Box
@@ -170,8 +222,8 @@ const Header = () => {
                   type="date"
                   variant="standard"
                   fullWidth
-                  name="trainingStartDate"
-                  value={formData.trainingStartDate}
+                  name="startDate"
+                  value={formData.startDate}
                   onChange={handleInputChange}
                   required
                   InputLabelProps={{
@@ -185,8 +237,8 @@ const Header = () => {
                   type="date"
                   variant="standard"
                   fullWidth
-                  name="trainingEndDate"
-                  value={formData.trainingEndDate}
+                  name="endDate"
+                  value={formData.endDate}
                   onChange={handleInputChange}
                   required
                   InputLabelProps={{
@@ -221,8 +273,8 @@ const Header = () => {
                   label="Field of Specialization"
                   variant="standard"
                   fullWidth
-                  name="fieldofSpecialization"
-                  value={formData.fieldofSpecialization}
+                  name="field"
+                  value={formData.field}
                   onChange={handleInputChange}
                   required
                 />

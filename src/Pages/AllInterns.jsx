@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   IconButton,
@@ -16,12 +16,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 const getColumns = (handleEditClick) => [
   { field: "id", headerName: "Trainee_ID", width: 95 },
-  { field: "name", headerName: "Name", width: 180, editable: false },
+  { field: "name", headerName: "Name", width: 180 },
   {
     field: "contactDetails",
     headerName: "Mobile / Email / Address",
     width: 240,
-    editable: false,
     renderCell: (params) => (
       <div style={{ lineHeight: 1.6 }}>
         <div>{params.row.mobile}</div>
@@ -30,27 +29,30 @@ const getColumns = (handleEditClick) => [
       </div>
     ),
   },
-  { field: "nic", headerName: "NIC", width: 140, editable: false },
+  { field: "nic", headerName: "NIC", width: 140 },
+  { field: "endDate", headerName: "Training Ends", width: 130 },
+  { field: "institute", headerName: "Institute", width: 207 },
   {
-    field: "trainingEndDate",
-    headerName: "Training Ends",
-    width: 130,
-    editable: false,
-  },
-  { field: "institute", headerName: "Institute", width: 207, editable: false },
-  {
-    field: "fieldofSpecialization",
+    field: "field",
     headerName: "Field of Specialization",
     width: 200,
-    editable: false,
   },
-  { field: "supervisor", headerName: "Supervisor", width: 160, editable: false },
+  { field: "supervisor", headerName: "Supervisor", width: 160 },
   {
     field: "action",
     headerName: "Action",
     width: 90,
     renderCell: (params) => (
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: "100%", gap: "10px" }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100%",
+          height: "100%",
+          gap: "10px",
+        }}
+      >
         <IconButton
           aria-label="edit"
           style={{ color: "green" }}
@@ -66,28 +68,28 @@ const getColumns = (handleEditClick) => [
   },
 ];
 
-const rows = [
-  {
-    id: 1,
-    name: "Achintha Alahakoon",
-    mobile: "0703212590",
-    nic: "200020800163",
-    email: "achintha@gmail.com",
-    address: "Parakaduwa, Eheliyagoda",
-    trainingStartDate: "2023-05-20",
-    trainingEndDate: "2025-05-20",
-    institute: "University of Kelaniya",
-    languagesKnown: "Java, Python, C, C++",
-    fieldofSpecialization: "Software Engineering",
-    supervisor: "Mr. Giridaran",
-    assignedWork: "Web Development",
-    targetDate: "2025-05-20",
-  },
-];
-
 const AllInterns = () => {
+  const [interns, setInterns] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState(null);
+
+  useEffect(() => {
+    const fetchInterns = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/api/interns");
+        const data = await response.json();
+        setInterns(data);
+      } catch (error) {
+        console.error("Error fetching interns:", error);
+      }
+    };
+
+    fetchInterns();
+
+    const interval = setInterval(fetchInterns, 1000);
+    return () => clearInterval(interval);
+    
+  }, []);
 
   const handleEditClick = (row) => {
     setEditData(row);
@@ -116,7 +118,7 @@ const AllInterns = () => {
     <div className="all-interns-container">
       <Box sx={{ height: 550, width: "95%", margin: "auto" }}>
         <DataGrid
-          rows={rows}
+          rows={interns}
           columns={getColumns(handleEditClick)}
           getRowHeight={() => 75}
           initialState={{
@@ -135,10 +137,46 @@ const AllInterns = () => {
           open={isEditing}
           onClose={handleClose}
           sx={{
-            "& .MuiDialog-paper": { width: "1200px", height: "85%", maxWidth: "none" },
+            "& .MuiDialog-paper": {
+              width: "1200px",
+              height: "85%",
+              maxWidth: "none",
+            },
+            "& .MuiBackdrop-root": {
+              backgroundColor: "rgba(220, 220, 220, 0.48)",
+              backdropFilter: "blur(2px)",
+            },
           }}
         >
-          <DialogTitle>Update Intern Details</DialogTitle>
+          <DialogTitle
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            Update Intern Details
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: editData.status === "true" ? "green" : "red",
+                color: "white",
+                cursor: "default",
+                outline: "none",
+                boxShadow: "none",
+                "&:hover": {
+                  backgroundColor: editData.status === "true" ? "green" : "red",
+                },
+                "&:focus": {
+                  outline: "none",
+                  boxShadow: "none",
+                },
+              }}
+            >
+              {editData.status === "true" ? "Active" : "Not Active"}
+            </Button>
+          </DialogTitle>
+
           <DialogContent>
             <Grid container spacing={3}>
               <Grid item xs={6}>
@@ -202,8 +240,8 @@ const AllInterns = () => {
                   variant="standard"
                   fullWidth
                   type="date"
-                  name="trainingStartDate"
-                  value={editData.trainingStartDate}
+                  name="startDate"
+                  value={editData.startDate}
                   onChange={handleInputChange}
                   required
                 />
@@ -214,8 +252,8 @@ const AllInterns = () => {
                   variant="standard"
                   fullWidth
                   type="date"
-                  name="trainingEndDate"
-                  value={editData.trainingEndDate}
+                  name="endDate"
+                  value={editData.endDate}
                   onChange={handleInputChange}
                   required
                 />
@@ -248,7 +286,7 @@ const AllInterns = () => {
                   variant="standard"
                   fullWidth
                   name="fieldofSpecialization"
-                  value={editData.fieldofSpecialization}
+                  value={editData.field}
                   onChange={handleInputChange}
                   required
                 />
