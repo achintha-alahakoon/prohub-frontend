@@ -13,6 +13,7 @@ import {
 import { DataGrid } from "@mui/x-data-grid";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Swal from "sweetalert2";
 
 const getColumns = (handleEditClick, handleDeleteClick) => [
   { field: "id", headerName: "Trainee_ID", width: 95 },
@@ -60,8 +61,11 @@ const getColumns = (handleEditClick, handleDeleteClick) => [
         >
           <EditIcon style={{ width: 17, height: 17 }} />
         </IconButton>
-        <IconButton aria-label="delete" style={{ color: "red" }}
-        onClick={() => handleDeleteClick(params.row)}>
+        <IconButton
+          aria-label="delete"
+          style={{ color: "red" }}
+          onClick={() => handleDeleteClick(params.row)}
+        >
           <DeleteIcon style={{ width: 17, height: 17 }} />
         </IconButton>
       </div>
@@ -81,7 +85,7 @@ const AllInterns = () => {
         const data = await response.json();
         setInterns(data);
       } catch (error) {
-        console.error("Error fetching interns:", error);
+        Swal.fire("Error", "Failed to fetch interns.", "error");
       }
     };
 
@@ -89,7 +93,6 @@ const AllInterns = () => {
 
     const interval = setInterval(fetchInterns, 1000);
     return () => clearInterval(interval);
-
   }, []);
 
   const handleEditClick = (row) => {
@@ -98,27 +101,32 @@ const AllInterns = () => {
   };
 
   const handleDeleteClick = async (row) => {
-    const confirmation = window.confirm(`Are you sure you want to delete the intern with ID ${row.id}?`);
-    if (!confirmation) return;
-  
-    try {
-      const response = await fetch(`http://localhost:8080/api/interns/${row.id}`, {
-        method: "DELETE",
-      });
-  
-      if (response.ok) {
-        // If deletion is successful, remove the intern from the state
-        setInterns((prevInterns) => prevInterns.filter((intern) => intern.id !== row.id));
-        alert("Intern deleted successfully.");
-      } else {
-        alert("Failed to delete intern.");
+    const result = await Swal.fire({
+      title: `Are you sure?`,
+      text: `You are about to delete the intern with ID ${row.id}. This action cannot be undone.`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "Cancel",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        const response = await fetch(`http://localhost:8080/api/interns/${row.id}`, {
+          method: "DELETE",
+        });
+
+        if (response.ok) {
+          setInterns((prevInterns) => prevInterns.filter((intern) => intern.id !== row.id));
+          Swal.fire("Deleted!", "Intern deleted successfully.", "success");
+        } else {
+          Swal.fire("Error", "Failed to delete intern.", "error");
+        }
+      } catch (error) {
+        Swal.fire("Error", "An error occurred while deleting the intern.", "error");
       }
-    } catch (error) {
-      console.error("Error deleting intern:", error);
-      alert("An error occurred while trying to delete the intern.");
     }
   };
-  
 
   const handleClose = () => {
     setIsEditing(false);
@@ -133,16 +141,30 @@ const AllInterns = () => {
     }));
   };
 
-  const handleUpdate = () => {
-    console.log("Updated Data: ", editData);
-    handleClose();
+  const handleUpdate = async () => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/interns/${editData.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(editData),
+      });
+
+      Swal.fire("Updated!", "Intern details updated successfully.", "success");
+      handleClose();
+    } catch (error) {
+      Swal.fire("Error", "Failed to update intern details.", "error");
+    }
   };
+
+  const filteredInterns = interns.filter((intern) => intern.status === "true");
 
   return (
     <div className="all-interns-container">
       <Box sx={{ height: 550, width: "95%", margin: "auto" }}>
         <DataGrid
-          rows={interns}
+          rows={filteredInterns}
           columns={getColumns(handleEditClick, handleDeleteClick)}
           getRowHeight={() => 75}
           initialState={{

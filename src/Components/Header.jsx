@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Typography,
@@ -12,9 +12,9 @@ import {
 } from "@mui/material";
 import Logo from "../assets/Logo.png";
 import { BiPlus } from "react-icons/bi";
+import Swal from "sweetalert2";
 
 const Header = () => {
-  
   const [openModal, setOpenModal] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -44,7 +44,6 @@ const Header = () => {
   };
 
   const handleSubmit = () => {
-    
     const requiredFields = [
       "name",
       "mobile",
@@ -59,14 +58,18 @@ const Header = () => {
       "assignedWork",
       "targetDate",
     ];
-  
+
     const isValid = requiredFields.every((field) => formData[field].trim() !== "");
-  
+
     if (!isValid) {
-      alert("Please fill all required fields.");
+      Swal.fire({
+        icon: "error",
+        title: "Missing Information",
+        text: "Please fill all required fields.",
+      });
       return;
     }
-  
+
     try {
       fetch("http://localhost:8080/api/interns", {
         method: "POST",
@@ -78,6 +81,13 @@ const Header = () => {
         .then((response) => response.json())
         .then((data) => {
           console.log("Intern added successfully:", data);
+
+          Swal.fire({
+            icon: "success",
+            title: "Success!",
+            text: "Intern has been added successfully.",
+          });
+
           setOpenModal(false);
           setFormData({
             name: "",
@@ -94,11 +104,24 @@ const Header = () => {
             assignedWork: "",
             targetDate: "",
           });
+        })
+        .catch((error) => {
+          console.error("Error adding intern:", error);
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Failed to add the intern. Please try again.",
+          });
         });
     } catch (error) {
       console.error("Error adding intern:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "An unexpected error occurred. Please try again.",
+      });
     }
-  };  
+  };
 
   return (
     <Box
@@ -120,11 +143,7 @@ const Header = () => {
       </Typography>
 
       <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        <TextField
-          variant="outlined"
-          placeholder="Search..."
-          size="small"
-        />
+        <TextField variant="outlined" placeholder="Search..." size="small" />
         <div
           style={{
             backgroundColor: "#1450A3",
