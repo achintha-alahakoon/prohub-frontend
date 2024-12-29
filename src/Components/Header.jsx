@@ -59,7 +59,9 @@ const Header = () => {
       "targetDate",
     ];
 
-    const isValid = requiredFields.every((field) => formData[field].trim() !== "");
+    const isValid = requiredFields.every(
+      (field) => formData[field].trim() !== ""
+    );
 
     if (!isValid) {
       Swal.fire({
@@ -143,7 +145,11 @@ const Header = () => {
       </Typography>
 
       <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        <TextField variant="outlined" placeholder="Search..." size="small" />
+        <TextField
+          variant="outlined"
+          placeholder="Search..."
+          size="small"
+        />
         <div
           style={{
             backgroundColor: "#1450A3",
