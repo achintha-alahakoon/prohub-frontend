@@ -10,7 +10,7 @@ import {
   Button,
   Grid,
 } from "@mui/material";
-import Logo from "../assets/Logo.png";
+import Logo from "../assets/logo.png";
 import { BiPlus } from "react-icons/bi";
 import Swal from "sweetalert2";
 
