@@ -17,7 +17,7 @@ import Swal from "sweetalert2";
 
 const getColumns = (handleEditClick, handleDeleteClick) => [
   { field: "id", headerName: "Trainee_ID", width: 95 },
-  { field: "name", headerName: "Name", width: 180 },
+  { field: "name", headerName: "Name", width: 170 },
   {
     field: "contactDetails",
     headerName: "Mobile / Email / Address",
@@ -77,23 +77,31 @@ const AllInterns = () => {
   const [interns, setInterns] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState(null);
+  const [hasErrorOccurred, setHasErrorOccurred] = useState(false);
 
   useEffect(() => {
     const fetchInterns = async () => {
       try {
         const response = await fetch("http://localhost:8080/api/interns");
+        if (!response.ok) {
+          throw new Error("Failed to fetch interns.");
+        }
         const data = await response.json();
         setInterns(data);
+        setHasErrorOccurred(false);
       } catch (error) {
-        Swal.fire("Error", "Failed to fetch interns.", "error");
+        if (!hasErrorOccurred) {
+          Swal.fire("Error", "Failed to fetch interns.", "error");
+          setHasErrorOccurred(true);
+        }
       }
     };
-
+  
     fetchInterns();
-
+  
     const interval = setInterval(fetchInterns, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [hasErrorOccurred]);
 
   const handleEditClick = (row) => {
     setEditData(row);
