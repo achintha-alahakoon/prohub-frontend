@@ -96,3 +96,8 @@
     border-radius: 40px;
   }
   
+  .available-positions {
+    grid-column: span 2;
+    padding: 50px;
+    width: 93%;
+  }

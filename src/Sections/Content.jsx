@@ -3,6 +3,7 @@ import { Link } from "@mui/material";
 import Team from "../assets/SLT_team.jpg";
 import Business from "../assets/business.jpg";
 import "../Styles/Content.css";
+import AvailablePositions from "../Components/AvailablePositions";
 
 const Content = () => {
   return (
@@ -63,20 +64,12 @@ const Content = () => {
         <button className="hover-button">Search career opportunities</button>
       </div>
       <div className="image-container">
-        <img
-          src={Team}
-          alt="Team"
-          className="image-style"
-        />
+        <img src={Team} alt="Team" className="image-style" />
       </div>
 
       {/* Row 4 */}
       <div className="image-container">
-        <img
-          src={Business}
-          alt="Business"
-          className="image-rounded"
-        />
+        <img src={Business} alt="Business" className="image-rounded" />
       </div>
       <div className="row-content">
         <h1 style={{ color: "#1450A3" }}>A global and diverse environment</h1>
@@ -86,6 +79,20 @@ const Content = () => {
           international environment, connecting with colleagues all around the
           globe and from different walks of life.
         </h3>
+      </div>
+
+      {/* Gradient Divider */}
+      <div
+        style={{
+          gridColumn: "1 / -1",
+          height: "1.5px",
+          background: "linear-gradient(135deg, #00B0FF, #4CAF50)",
+        }}
+      />
+
+      {/* Row 5 */}
+      <div className="available-positions">
+        <AvailablePositions />
       </div>
     </div>
   );
