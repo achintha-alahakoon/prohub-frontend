@@ -132,13 +132,13 @@ const AvailablePositions = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <Button variant="contained" color="primary" onClick={handleSearch}>
+        <Button variant="contained" color="primary" onClick={handleSearch} style={{ backgroundColor: "#1450A3", color: "white", border: "none" }}>
           Search
         </Button>
         <Button
           variant="outlined"
           onClick={(e) => setDepartmentAnchorEl(e.currentTarget)}
-          style={{ marginLeft: "100px", marginRight: "10px", backgroundColor: "#9694FF", color: "white" }}
+          style={{ marginLeft: "100px", marginRight: "10px", backgroundColor: "#4CAF50", color: "white", border: "none" }}
         >
         Department
         </Button>
@@ -156,7 +156,7 @@ const AvailablePositions = () => {
         <Button
           variant="outlined"
           onClick={(e) => setLocationAnchorEl(e.currentTarget)}
-          style={{ backgroundColor: "#9694FF", color: "white" }}
+          style={{ backgroundColor: "#4CAF50", color: "white", border: "none" }}
         >
         Location
         </Button>

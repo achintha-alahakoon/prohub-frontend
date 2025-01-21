@@ -4,6 +4,7 @@ import Team from "../assets/SLT_team.jpg";
 import Business from "../assets/business.jpg";
 import "../Styles/Content.css";
 import AvailablePositions from "../Components/AvailablePositions";
+import Footer from "../Components/Footer";
 
 const Content = () => {
   return (
@@ -36,7 +37,7 @@ const Content = () => {
         </h2>
         <h2 style={{ fontWeight: "normal" }}>
           To read more about our core values, <br />
-          <Link href="/about" style={{ color: "#1450A3" }}>
+          <Link href="/about" style={{ color: "#1450A3", textDecoration: "none", fontWeight: "bold" }}>
             please click here
           </Link>
         </h2>
@@ -72,7 +73,7 @@ const Content = () => {
         <img src={Business} alt="Business" className="image-rounded" />
       </div>
       <div className="row-content">
-        <h1 style={{ color: "#1450A3" }}>A global and diverse environment</h1>
+        <h1 style={{ color: "#1450A3", fontSize: "50px" }}>A global and diverse environment</h1>
         <h3 style={{ fontWeight: "normal" }}>
           We believe that diversity makes us stronger, more innovative and
           ultimately more competitive. At SLT, you will work in a truly
@@ -93,6 +94,11 @@ const Content = () => {
       {/* Row 5 */}
       <div className="available-positions">
         <AvailablePositions />
+      </div>
+
+      {/* Row 6 */}
+      <div className="footer-container">
+        <Footer />
       </div>
     </div>
   );
