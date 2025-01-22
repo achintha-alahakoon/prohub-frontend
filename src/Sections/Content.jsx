@@ -12,7 +12,7 @@ const Content = () => {
       style={{
         display: "grid",
         gridTemplateColumns: "repeat(2, 1fr)",
-        gridTemplateRows: "80vh auto 100vh 100vh",
+        gridTemplateRows: "70vh auto 100vh 100vh",
         gap: "10px",
         width: "100%",
       }}
