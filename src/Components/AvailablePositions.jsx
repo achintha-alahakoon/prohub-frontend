@@ -12,7 +12,6 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { Link } from "@mui/material";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -34,8 +33,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(JobTitle, TypeOfEmployment, Department, Location) {
-  return { JobTitle, TypeOfEmployment, Department, Location };
+function createData(JobTitle, TypeOfEmployment, Department, Location, Description) {
+  return { JobTitle, TypeOfEmployment, Department, Location, Description };
 }
 
 const rows = [
@@ -43,19 +42,22 @@ const rows = [
     "Software Engineer",
     "Full Time",
     "Information Technology",
-    "Colombo"
+    "Colombo",
+    "Develop and maintain software applications, ensure high quality and performance."
   ),
   createData(
     "Data Analyst",
     "Part Time",
     "Data Science",
-    "Kandy"
+    "Kandy",
+    "Analyze datasets, provide insights, and create visualizations to support decision-making."
   ),
   createData(
     "System Administrator",
     "Full Time",
     "Infrastructure",
-    "Galle"
+    "Galle",
+    "Manage and maintain IT infrastructure, ensure systems' availability and security."
   ),
 ];
 
@@ -71,11 +73,6 @@ const AvailablePositions = () => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
   const handleSearch = () => {
     const filtered = rows.filter((row) =>
       row.JobTitle.toLowerCase().includes(searchTerm.toLowerCase())
@@ -83,6 +80,18 @@ const AvailablePositions = () => {
     setFilteredRows(filtered);
     setPage(0);
   };
+
+const openJobDetails = (job) => {
+  const queryParams = new URLSearchParams(job).toString();
+  window.open(`/job-details?${queryParams}`, "_blank");
+};
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+
 
   const handleDepartmentFilter = (department) => {
     const filtered = rows.filter((row) => row.Department === department);
@@ -97,6 +106,7 @@ const AvailablePositions = () => {
     setPage(0);
     setLocationAnchorEl(null);
   };
+
 
   const departments = [...new Set(rows.map((row) => row.Department))];
   const locations = [...new Set(rows.map((row) => row.Location))];
@@ -116,15 +126,35 @@ const AvailablePositions = () => {
         will never ask job applicants for credit card information or to buy
         equipment directly. To ensure job seekers deal directly with SLT, we
         ask that all applications are made directly through our website below.
-        If you have any concerns during the process, please <Link href="/contact-us" style={{ color: "#1450A3", textDecoration: "none", fontWeight: "bold" }}>get in touch</Link>.
+        If you have any concerns during the process, please{" "}
+        <a href="/contact-us" style={{ color: "#1450A3", textDecoration: "none", fontWeight: "bold" }}>
+          get in touch
+        </a>
+        .
       </p>
-      <h2 style={{ color: "#1450A3", fontSize: "32px", marginBottom: 0, marginTop: "50px" }}>
+      <h2
+        style={{
+          color: "#1450A3",
+          fontSize: "32px",
+          marginBottom: 0,
+          marginTop: "50px",
+        }}
+      >
         Can not find the job you are looking for?
       </h2>
-      <p style={{ marginTop: 0 }}>Click below to receive notifications when new jobs are posted</p>
+      <p style={{ marginTop: 0 }}>
+        Click below to receive notifications when new jobs are posted
+      </p>
 
       {/* Search and Filter Bar */}
-      <div style={{ display: "flex", gap: "8px", marginBottom: "30px", marginTop: "50px" }}>
+      <div
+        style={{
+          display: "flex",
+          gap: "8px",
+          marginBottom: "30px",
+          marginTop: "50px",
+        }}
+      >
         <TextField
           label="Search Job Title"
           variant="outlined"
@@ -132,15 +162,30 @@ const AvailablePositions = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <Button variant="contained" color="primary" onClick={handleSearch} style={{ backgroundColor: "#1450A3", color: "white", border: "none" }}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSearch}
+          style={{
+            backgroundColor: "#1450A3",
+            color: "white",
+            border: "none",
+          }}
+        >
           Search
         </Button>
         <Button
           variant="outlined"
           onClick={(e) => setDepartmentAnchorEl(e.currentTarget)}
-          style={{ marginLeft: "100px", marginRight: "10px", backgroundColor: "#4CAF50", color: "white", border: "none" }}
+          style={{
+            marginLeft: "100px",
+            marginRight: "10px",
+            backgroundColor: "#4CAF50",
+            color: "white",
+            border: "none",
+          }}
         >
-        Department
+          Department
         </Button>
         <Menu
           anchorEl={departmentAnchorEl}
@@ -156,9 +201,13 @@ const AvailablePositions = () => {
         <Button
           variant="outlined"
           onClick={(e) => setLocationAnchorEl(e.currentTarget)}
-          style={{ backgroundColor: "#4CAF50", color: "white", border: "none" }}
+          style={{
+            backgroundColor: "#4CAF50",
+            color: "white",
+            border: "none",
+          }}
         >
-        Location
+          Location
         </Button>
         <Menu
           anchorEl={locationAnchorEl}
@@ -185,15 +234,23 @@ const AvailablePositions = () => {
           </TableHead>
           <TableBody>
             {displayedRows.map((row, index) => (
-              <StyledTableRow key={index}>
+              <StyledTableRow
+                key={index}
+                onClick={() => openJobDetails(row)}
+                style={{ cursor: "pointer" }}
+              >
                 <StyledTableCell component="th" scope="row">
                   {row.JobTitle}
                 </StyledTableCell>
                 <StyledTableCell align="right">
                   {row.TypeOfEmployment}
                 </StyledTableCell>
-                <StyledTableCell align="right">{row.Department}</StyledTableCell>
-                <StyledTableCell align="right">{row.Location}</StyledTableCell>
+                <StyledTableCell align="right">
+                  {row.Department}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {row.Location}
+                </StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
