@@ -1,0 +1,28 @@
+.row-hcontent {
+    margin-left: 60px;
+    padding: 80px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    
+  }
+
+  .primary-hbutton {
+    margin-top: 30px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #1450A3;
+    width: 300px;
+    height: 80px;
+    border-radius: 40px;
+  }
+
+  .text-hcenter {
+    margin-left: 60px;
+    padding: 80px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
