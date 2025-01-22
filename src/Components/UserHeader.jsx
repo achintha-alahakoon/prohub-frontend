@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { AppBar, Toolbar, Button, Box } from "@mui/material";
-import { Link } from "react-router-dom";
+import { AppBar, Toolbar, Tabs, Tab, Box } from "@mui/material";
+import { Link, useLocation } from "react-router-dom";
 import {
   FacebookOutlined,
   InstagramOutlined,
@@ -11,6 +11,8 @@ import "../Styles/UserHeader.css";
 
 const UserHeader = () => {
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState(location.pathname);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,13 +30,21 @@ const UserHeader = () => {
     };
   }, []);
 
+  useEffect(() => {
+    setActiveTab(location.pathname);
+  }, [location]);
+
+  const handleChange = (event, newValue) => {
+    setActiveTab(newValue);
+  };
+
   return (
     <AppBar className={`appBar ${scrolled ? "scrolled" : ""}`}>
       <Toolbar
         style={{
           display: "flex",
           justifyContent: "space-between",
-          width: "98%",
+          alignItems: "center",
         }}
       >
         {/* Logo Section */}
@@ -46,39 +56,61 @@ const UserHeader = () => {
           />
         </Box>
 
-        {/* Navigation Links */}
-        <Box style={{ display: "flex", gap: "15px" }}>
-          <Button color="inherit" component={Link} to="/">
-            <b>Home</b>
-          </Button>
-          <Button color="inherit" component={Link} to="/about-us">
-            <b>About Us</b>
-          </Button>
-          <Button color="inherit" component={Link} to="/join-with-us">
-            <b>Join With Us</b>
-          </Button>
-          <Button color="inherit" component={Link} to="/contact-us">
-            <b>Contact Us</b>
-          </Button>
+        {/* Navigation Tabs */}
+        <Box style={{ flexGrow: 1, display: "flex", justifyContent: "center" }}>
+          <Tabs
+            value={activeTab}
+            onChange={handleChange}
+            textColor="primary"
+            indicatorColor="primary"
+          >
+            <Tab
+              label="Home"
+              value="/"
+              component={Link}
+              to="/"
+              style={{ fontWeight: activeTab === "/" ? "bold" : "normal",
+                color: activeTab === "/" ? "#1450A3" : "black",
+               }}
+            />
+            <Tab
+              label="About Us"
+              value="/about-us"
+              component={Link}
+              to="/about-us"
+              style={{
+                fontWeight: activeTab === "/about-us" ? "bold" : "normal",
+                color: activeTab === "/about-us" ? "#1450A3" : "black",
+              }}
+            />
+            <Tab
+              label="Join With Us"
+              value="/join-with-us"
+              component={Link}
+              to="/join-with-us"
+              style={{
+                fontWeight: activeTab === "/join-with-us" ? "bold" : "normal",
+                color: activeTab === "/join-with-us" ? "#1450A3" : "black",
+              }}
+            />
+            <Tab
+              label="Contact Us"
+              value="/contact-us"
+              component={Link}
+              to="/contact-us"
+              style={{
+                fontWeight: activeTab === "/contact-us" ? "bold" : "normal",
+                color: activeTab === "/contact-us" ? "#1450A3" : "black",
+              }}
+            />
+          </Tabs>
         </Box>
 
         {/* Social Icons */}
-        <Box style={{ display: "flex", gap: "10px" }}>
-          <Button color="inherit">
-            <span style={{ fontSize: "20px" }}>
-              <FacebookOutlined />
-            </span>
-          </Button>
-          <Button color="inherit">
-            <span style={{ fontSize: "20px" }}>
-              <InstagramOutlined />
-            </span>
-          </Button>
-          <Button color="inherit">
-            <span style={{ fontSize: "20px" }}>
-              <XOutlined />
-            </span>
-          </Button>
+        <Box style={{ display: "flex", gap: "40px", marginRight: "20px" }}>
+          <FacebookOutlined style={{ fontSize: "26px", cursor: "pointer" }} />
+          <InstagramOutlined style={{ fontSize: "26px", cursor: "pointer" }} />
+          <XOutlined style={{ fontSize: "26px", cursor: "pointer" }} />
         </Box>
       </Toolbar>
     </AppBar>
@@ -86,4 +118,3 @@ const UserHeader = () => {
 };
 
 export default UserHeader;
-

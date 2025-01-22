@@ -1,6 +1,6 @@
 import React from "react";
 import Image1 from "../assets/Image1.png";
-import { Button } from "@mui/material";
+
 
 const HeroSection = () => {
   return (
