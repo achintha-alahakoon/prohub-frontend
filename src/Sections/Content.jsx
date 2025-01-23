@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link } from "@mui/material";
 import Team from "../assets/SLT_team.jpg";
 import Business from "../assets/business.jpg";
@@ -7,12 +7,20 @@ import AvailablePositions from "../Components/AvailablePositions";
 import Footer from "../Components/Footer";
 
 const Content = () => {
+  const positionsRef = useRef(null);
+
+  const scrollToPositions = () => {
+    if (positionsRef.current) {
+      positionsRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div
       style={{
         display: "grid",
         gridTemplateColumns: "repeat(2, 1fr)",
-        gridTemplateRows: "80vh auto 100vh 100vh",
+        gridTemplateRows: "70vh auto 100vh 100vh",
         gap: "10px",
         width: "100%",
       }}
@@ -26,7 +34,9 @@ const Content = () => {
           <br /> that give them a sense of purpose.
           <br /> #MakeYourMoment
         </h3>
-        <button className="primary-button">See Available Positions</button>
+        <button className="primary-button" onClick={scrollToPositions}>
+          See Available Positions
+        </button>
       </div>
       <div className="text-center">
         <h2 style={{ fontWeight: "normal" }}>
@@ -37,7 +47,10 @@ const Content = () => {
         </h2>
         <h2 style={{ fontWeight: "normal" }}>
           To read more about our core values, <br />
-          <Link href="/about" style={{ color: "#1450A3", textDecoration: "none", fontWeight: "bold" }}>
+          <Link
+            href="/about"
+            style={{ color: "#1450A3", textDecoration: "none", fontWeight: "bold" }}
+          >
             please click here
           </Link>
         </h2>
@@ -92,7 +105,7 @@ const Content = () => {
       />
 
       {/* Row 5 */}
-      <div className="available-positions">
+      <div ref={positionsRef} className="available-positions">
         <AvailablePositions />
       </div>
 
