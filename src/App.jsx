@@ -14,12 +14,12 @@ import JobDetails from "./Pages/UserView/JobDetails";
 function App() {
   const location = useLocation();
 
-  // Conditionally render the UserHeader based on the path
-  const isJobDetailsPage = location.pathname === "/job-details";
+  const pathsWithHeader = ["/", "/contact-us", "/about-us", "/join-with-us"];
+  const shouldDisplayHeader = pathsWithHeader.includes(location.pathname);
 
   return (
     <div>
-      {!isJobDetailsPage && <UserHeader />}
+      {shouldDisplayHeader && <UserHeader />}
       <div>
         <Routes>
           <Route path="/" element={<Home />} />
