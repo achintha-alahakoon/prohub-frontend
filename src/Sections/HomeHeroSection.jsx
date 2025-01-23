@@ -6,13 +6,15 @@ const HomeHeroSection = () => {
         backgroundImage: `url(${Home1})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        height: "70vh",
-        display: "flex",
+        backgroundAttachment: "fixed",
+        height: "100vh",
+        color:"#000",
+        textAlign:"center",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        color: "#000",
-        textAlign: "center",
+        display:"flex"
+        
       }}>
       
     </div>
