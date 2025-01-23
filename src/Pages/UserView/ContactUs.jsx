@@ -1,18 +1,33 @@
-import React from 'react'
+import React from 'react';
+import { FacebookOutlined, InstagramOutlined, XOutlined, LinkedinOutlined } from '@ant-design/icons';
 
 const ContactUs = () => {
   const styles = {
+    outerContainer: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      minHeight: "100vh",
+      width: "100vw",
+      backgroundColor: "#f0f0f0",
+      paddingTop: "60px",
+    },
     container: {
       fontFamily: "Arial, sans-serif",
       padding: "30px",
       maxWidth: "1000px",
-      margin: "0 auto",
+      width: "100%",
       color: "#333",
+      backgroundColor: "#fff",
+      borderRadius: "10px",
+      boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
     },
     header: {
       textAlign: "center",
       color: "#0047AB",
       marginBottom: "20px",
+      fontSize: "2.5em",
+      fontWeight: "bold",
     },
     section: {
       marginBottom: "20px",
@@ -24,6 +39,8 @@ const ContactUs = () => {
     subHeading: {
       color: "#0056b3",
       marginBottom: "15px",
+      fontSize: "1.5em",
+      fontWeight: "bold",
     },
     text: {
       marginBottom: "10px",
@@ -47,112 +64,115 @@ const ContactUs = () => {
       borderRadius: "10px",
       backgroundColor: "#ffffff",
       textAlign: "center",
-      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
     },
     contactIcon: {
-      fontSize: "40px",
-      marginBottom: "10px",
-      color: "#0047AB",
+      marginRight: "10px",
+      fontSize: "1.5em",
+    },
+    footer: {
+      textAlign: "center",
+      padding: "20px",
+      marginTop: "30px",
+      borderTop: "1px solid #ddd",
+      color: "#777",
+    },
+    footerSocial: {
+      display: "flex",
+      justifyContent: "center",
+      gap: "10px",
+      marginTop: "10px",
     },
   };
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.header}>Contact Us</h1>
-      <p style={{ textAlign: "center", marginBottom: "30px" }}>
-        Welcome to the SLT Trainee System support page. Reach out for any
-        inquiries, assistance, or feedback. We’re here to help!
-      </p>
+    <div style={styles.outerContainer}>
+      <div style={styles.container}>
+        {/* Page Header */}
+        <h1 style={styles.header}>Contact Us</h1>
+        <p style={{ textAlign: "center", marginBottom: "30px" }}>
+          Welcome to the SLT Trainee System support page. Reach out for any
+          inquiries, assistance, or feedback. We’re here to help!
+        </p>
 
-      {/* Quick Contacts Section */}
-      <div style={styles.section}>
-        <h2 style={styles.subHeading}>Quick Contacts</h2>
-        <div style={styles.contactCard}>
-          <div style={styles.contactItem}>
-            <div style={styles.contactIcon}>📞</div>
-            <p>
-              <strong>Hotline:</strong>
-            </p>
-            <p>+94 11 2021 555</p>
-          </div>
-          <div style={styles.contactItem}>
-            <div style={styles.contactIcon}>📧</div>
-            <p>
-              <strong>Email:</strong>
-            </p>
-            <p>
-              <a href="mailto:traineesupport@slt.lk" style={styles.link}>
-                traineesupport@slt.lk
-              </a>
-            </p>
-          </div>
-          <div style={styles.contactItem}>
-            <div style={styles.contactIcon}>📍</div>
-            <p>
-              <strong>Address:</strong>
-            </p>
-            <p>SLT Headquarters, Lotus Road, Colombo 01, Sri Lanka</p>
+
+        {/* Feedback Section */}
+        <div style={styles.section}>
+          <h2 style={styles.subHeading}>We Value Your Feedback</h2>
+          <p style={styles.text}>
+            Share your thoughts and suggestions to help us improve the SLT
+            Trainee System. Your feedback is invaluable in making this system
+            more efficient and user-friendly.
+          </p>
+          <p style={styles.text}>
+            Email your feedback to{" "}
+            <a href="mailto:feedback@slt.lk" style={styles.link}>
+              feedback@slt.lk
+            </a>.
+          </p>
+        </div>
+
+        {/* Emergency Protocols */}
+        <div style={styles.section}>
+          <h2 style={styles.subHeading}>Emergency Protocols</h2>
+          <p style={styles.text}>
+            In case of emergencies during your training, please follow these steps:
+          </p>
+          <ol style={{ marginLeft: "20px" }}>
+            <li>Contact your immediate supervisor using the emergency contact provided below.</li>
+            <li>Report to the nearest SLT office or inform the management via the hotline.</li>
+            <li>
+              For medical emergencies, inform the SLT administration at{" "}
+              <a href="mailto:emergency@slt.lk" style={styles.link}>emergency@slt.lk</a>.
+            </li>
+          </ol>
+        </div>
+
+        {/* Contact Information Cards */}
+        <div style={styles.section}>
+          <div style={styles.contactCard}>
+            <div style={styles.contactItem}>
+              <div style={styles.contactIcon}>📞</div>
+              <p>
+                <strong>Hotline:</strong>
+              </p>
+              <p>+94 11 2021 555</p>
+            </div>
+            <div style={styles.contactItem}>
+              <div style={styles.contactIcon}>📧</div>
+              <p>
+                <strong>Email:</strong>
+              </p>
+              <p>
+                <a href="mailto:traineesupport@slt.lk" style={styles.link}>
+                  traineesupport@slt.lk
+                </a>
+              </p>
+            </div>
+            <div style={styles.contactItem}>
+              <div style={styles.contactIcon}>📍</div>
+              <p>
+                <strong>Address:</strong>
+              </p>
+              <p>SLT Headquarters, Lotus Road, Colombo 01, Sri Lanka</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Detailed Support Section */}
-      <div style={styles.section}>
-        <h2 style={styles.subHeading}>System Support</h2>
-        <p style={styles.text}>
-          For issues related to the trainee system, including login problems,
-          data errors, or general queries, please contact the system
-          administrator using the email provided. Make sure to include your
-          trainee ID and a clear description of the issue.
-        </p>
-        <p style={styles.text}>
-          For urgent issues, call the hotline or contact your assigned SLT
-          supervisor.
-        </p>
-      </div>
-
-      {/* Branch Locations Section */}
-      <div style={styles.section}>
-        <h2 style={styles.subHeading}>Regional Offices</h2>
-        <p style={styles.text}>
-          You can visit one of our regional offices for further assistance. Use
-          the SLT{" "}
-          <a
-            href="https://www.slt.lk/branches"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={styles.link}
-          >
-            branch locator
-          </a>{" "}
-          to find the nearest office to your location.
-        </p>
-      </div>
-
-      {/* Feedback Section */}
-      <div style={styles.section}>
-        <h2 style={styles.subHeading}>Feedback</h2>
-        <p style={styles.text}>
-          We value your feedback to improve the SLT Trainee System. Please share
-          your suggestions by emailing{" "}
-          <a href="mailto:traineesupport@slt.lk" style={styles.link}>
-            traineesupport@slt.lk
-          </a>{" "}
-          with the subject line: "Feedback - Trainee System".
-        </p>
-      </div>
-
-      {/* Emergency Contacts */}
-      <div style={styles.section}>
-        <h2 style={styles.subHeading}>Emergency Contacts</h2>
-        <p style={styles.text}>
-          In case of emergencies or immediate support, you may contact:
-        </p>
-        <ul style={{ marginLeft: "20px" }}>
-          <li>System Admin: +94 11 2345 678</li>
-          <li>IT Helpdesk: +94 11 3456 789</li>
-          <li>Supervisor Support: +94 11 4567 890</li>
-        </ul>
+        {/* Footer */}
+        <div style={styles.footer}>
+          &copy; {new Date().getFullYear()} Sri Lanka Telecom. All rights reserved.
+          <div style={styles.footerSocial}>
+            <a href="#">
+              <FacebookOutlined />
+            </a>
+            <a href="#">
+              <InstagramOutlined />
+            </a>
+            <a href="#">
+              <XOutlined />
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );
