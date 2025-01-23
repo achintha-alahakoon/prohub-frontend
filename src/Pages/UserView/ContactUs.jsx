@@ -1,26 +1,30 @@
 import React from 'react';
 import { FacebookOutlined, InstagramOutlined, XOutlined, LinkedinOutlined } from '@ant-design/icons';
+import Footer from "../../Components/Footer"; // Adjust the import path as necessary
 
 const ContactUs = () => {
   const styles = {
     outerContainer: {
       display: "flex",
-      justifyContent: "center",
+      flexDirection: "column",
+      justifyContent: "space-between",
       alignItems: "center",
       minHeight: "100vh",
       width: "100vw",
       backgroundColor: "#f0f0f0",
-      paddingTop: "60px",
+      paddingTop: "70px", // Adjust this value based on your menu bar height
+      paddingBottom: "60px",
     },
     container: {
       fontFamily: "Arial, sans-serif",
       padding: "30px",
       maxWidth: "1000px",
-      width: "100%",
+      width: "90%",
       color: "#333",
       backgroundColor: "#fff",
       borderRadius: "10px",
       boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+      margin: "0 20px",
     },
     header: {
       textAlign: "center",
@@ -69,65 +73,50 @@ const ContactUs = () => {
       marginRight: "10px",
       fontSize: "1.5em",
     },
-    footer: {
-      textAlign: "center",
-      padding: "20px",
-      marginTop: "30px",
-      borderTop: "1px solid #ddd",
-      color: "#777",
-    },
-    footerSocial: {
-      display: "flex",
-      justifyContent: "center",
-      gap: "10px",
-      marginTop: "10px",
-    },
   };
 
   return (
     <div style={styles.outerContainer}>
       <div style={styles.container}>
-        {/* Page Header */}
+        {/* Header Section */}
         <h1 style={styles.header}>Contact Us</h1>
         <p style={{ textAlign: "center", marginBottom: "30px" }}>
           Welcome to the SLT Trainee System support page. Reach out for any
           inquiries, assistance, or feedback. We’re here to help!
         </p>
 
-
-        {/* Feedback Section */}
+        {/* Office Section */}
         <div style={styles.section}>
-          <h2 style={styles.subHeading}>We Value Your Feedback</h2>
-          <p style={styles.text}>
-            Share your thoughts and suggestions to help us improve the SLT
-            Trainee System. Your feedback is invaluable in making this system
-            more efficient and user-friendly.
-          </p>
-          <p style={styles.text}>
-            Email your feedback to{" "}
-            <a href="mailto:feedback@slt.lk" style={styles.link}>
-              feedback@slt.lk
-            </a>.
-          </p>
+          <h2 style={styles.subHeading}>Our Office</h2>
+          <p style={styles.text}>SLT Headquarters, Lotus Road, Colombo 01, Sri Lanka</p>
         </div>
 
-        {/* Emergency Protocols */}
+        {/* Email Section */}
         <div style={styles.section}>
-          <h2 style={styles.subHeading}>Emergency Protocols</h2>
-          <p style={styles.text}>
-            In case of emergencies during your training, please follow these steps:
-          </p>
-          <ol style={{ marginLeft: "20px" }}>
-            <li>Contact your immediate supervisor using the emergency contact provided below.</li>
-            <li>Report to the nearest SLT office or inform the management via the hotline.</li>
-            <li>
-              For medical emergencies, inform the SLT administration at{" "}
-              <a href="mailto:emergency@slt.lk" style={styles.link}>emergency@slt.lk</a>.
-            </li>
-          </ol>
+          <h2 style={styles.subHeading}>Email Us</h2>
+          <p style={styles.text}>traineesupport@slt.lk</p>
         </div>
 
-        {/* Contact Information Cards */}
+        {/* Call Us Section */}
+        <div style={styles.section}>
+          <h2 style={styles.subHeading}>Call Us</h2>
+          <p style={styles.text}>+94 11 2021 555</p>
+        </div>
+
+        {/* Emergency Contacts Section */}
+        <div style={styles.section}>
+          <h2 style={styles.subHeading}>Emergency Contacts</h2>
+          <p style={styles.text}>
+            In case of emergencies or immediate support, you may contact:
+          </p>
+          <ul style={{ marginLeft: "20px" }}>
+            <li>System Admin: +94 11 2345 678</li>
+            <li>IT Helpdesk: +94 11 3456 789</li>
+            <li>Supervisor Support: +94 11 4567 890</li>
+          </ul>
+        </div>
+
+        {/* Contact Card Section */}
         <div style={styles.section}>
           <div style={styles.contactCard}>
             <div style={styles.contactItem}>
@@ -157,23 +146,10 @@ const ContactUs = () => {
             </div>
           </div>
         </div>
-
-        {/* Footer */}
-        <div style={styles.footer}>
-          &copy; {new Date().getFullYear()} Sri Lanka Telecom. All rights reserved.
-          <div style={styles.footerSocial}>
-            <a href="#">
-              <FacebookOutlined />
-            </a>
-            <a href="#">
-              <InstagramOutlined />
-            </a>
-            <a href="#">
-              <XOutlined />
-            </a>
-          </div>
-        </div>
       </div>
+
+      {/* Footer Section */}
+      <Footer />
     </div>
   );
 };
