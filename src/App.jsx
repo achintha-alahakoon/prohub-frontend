@@ -10,6 +10,7 @@ import ContactUs from "./Pages/UserView/ContactUs";
 import AboutUs from "./Pages/UserView/AboutUs";
 import JoinWithUs from "./Pages/UserView/JoinWithUs";
 import JobDetails from "./Pages/UserView/JobDetails";
+import Apply from "./Pages/UserView/Apply";
 
 function App() {
   const location = useLocation();
@@ -29,6 +30,7 @@ function App() {
           <Route path="/all-interns" element={<AllInterns />} />
           <Route path="/header" element={<Header />} />
           <Route path="/job-details" element={<JobDetails />} />
+          <Route path="/apply" element={<Apply />} />
         </Routes>
       </div>
     </div>

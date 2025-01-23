@@ -33,30 +33,36 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(JobTitle, TypeOfEmployment, Department, Location, Description) {
+function createData(
+  JobTitle,
+  TypeOfEmployment,
+  Department,
+  Location,
+  Description
+) {
   return { JobTitle, TypeOfEmployment, Department, Location, Description };
 }
 
 const rows = [
   createData(
     "Software Engineer",
-    "Full Time",
+    "Full-Time",
     "Information Technology",
-    "Colombo",
-    "Develop and maintain software applications, ensure high quality and performance."
+    "Colombo, Sri Lanka",
+    "Develop and maintain software applications, ensure high quality and performance.Develop and maintain software applications, ensure high quality and performance.Develop and maintain software applications, ensure high quality and performance.Develop and maintain software applications, ensure high quality and performance.Develop and maintain software applications, ensure high quality and performance.Develop and maintain software applications, ensure high quality and performance.Develop and maintain software applications, ensure high quality and performance."
   ),
   createData(
     "Data Analyst",
-    "Part Time",
+    "Part-Time",
     "Data Science",
-    "Kandy",
+    "Kandy, Sri Lanka",
     "Analyze datasets, provide insights, and create visualizations to support decision-making."
   ),
   createData(
     "System Administrator",
-    "Full Time",
+    "Full-Time",
     "Infrastructure",
-    "Galle",
+    "Galle, Sri Lanka",
     "Manage and maintain IT infrastructure, ensure systems' availability and security."
   ),
 ];
@@ -81,17 +87,15 @@ const AvailablePositions = () => {
     setPage(0);
   };
 
-const openJobDetails = (job) => {
-  const queryParams = new URLSearchParams(job).toString();
-  window.open(`/job-details?${queryParams}`, "_blank");
-};
+  const openJobDetails = (job) => {
+    const queryParams = new URLSearchParams(job).toString();
+    window.open(`/job-details?${queryParams}`, "_blank");
+  };
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
-
 
   const handleDepartmentFilter = (department) => {
     const filtered = rows.filter((row) => row.Department === department);
@@ -106,7 +110,6 @@ const openJobDetails = (job) => {
     setPage(0);
     setLocationAnchorEl(null);
   };
-
 
   const departments = [...new Set(rows.map((row) => row.Department))];
   const locations = [...new Set(rows.map((row) => row.Location))];
@@ -124,10 +127,17 @@ const openJobDetails = (job) => {
       <p style={{ marginTop: 0 }}>
         Many large employers are targets of fraudsters. Please note that SLT
         will never ask job applicants for credit card information or to buy
-        equipment directly. To ensure job seekers deal directly with SLT, we
-        ask that all applications are made directly through our website below.
-        If you have any concerns during the process, please{" "}
-        <a href="/contact-us" style={{ color: "#1450A3", textDecoration: "none", fontWeight: "bold" }}>
+        equipment directly. To ensure job seekers deal directly with SLT, we ask
+        that all applications are made directly through our website below. If
+        you have any concerns during the process, please{" "}
+        <a
+          href="/contact-us"
+          style={{
+            color: "#1450A3",
+            textDecoration: "none",
+            fontWeight: "bold",
+          }}
+        >
           get in touch
         </a>
         .
@@ -227,7 +237,9 @@ const openJobDetails = (job) => {
           <TableHead>
             <TableRow>
               <StyledTableCell>Job Title</StyledTableCell>
-              <StyledTableCell align="right">Type of Employment</StyledTableCell>
+              <StyledTableCell align="right">
+                Type of Employment
+              </StyledTableCell>
               <StyledTableCell align="right">Department</StyledTableCell>
               <StyledTableCell align="right">Location</StyledTableCell>
             </TableRow>
@@ -248,9 +260,7 @@ const openJobDetails = (job) => {
                 <StyledTableCell align="right">
                   {row.Department}
                 </StyledTableCell>
-                <StyledTableCell align="right">
-                  {row.Location}
-                </StyledTableCell>
+                <StyledTableCell align="right">{row.Location}</StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>

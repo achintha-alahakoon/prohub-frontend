@@ -1,0 +1,8 @@
+.apply-header {
+    display: flex;
+    gap: 900px;
+    padding-left: 40px;
+    padding-right: 100px;
+    background-color: aqua;
+    width: 90.5vw;
+}
