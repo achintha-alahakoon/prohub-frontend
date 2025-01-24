@@ -26,10 +26,11 @@
   }
   .hfooter-container { 
     grid-column: span 2;
-    height: 60vh;
+    height: 51vh;
     background-color: #2d2d7f;
     color: #fff;
-    padding: 40px 50px;  
+    padding: 40px 50px; 
+     
   }
   .about-trainer{
     margin: 20px auto;
@@ -65,3 +66,27 @@
     flex-direction: column;
     align-items: center;
  }
+ .card-flex-h2{
+    margin: 20px auto;
+    padding: 20px;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+  
+ }
+
+  .card-flex{
+    margin: 20px auto;
+    padding: 40px;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    background: linear-gradient(135deg, #089e21 0%, #0c0e6b 100%);
+    gap: 20px;
+    flex-wrap: wrap;  /* Add this line to allow wrapping to the next line */
+  }
+  .card:hover {
+    transform: scale(1.05);
+  }
+
+
