@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TextField, Grid, Box, Button } from "@mui/material";
-import Swal from "sweetalert2"; // Ensure you have installed sweetalert2: `npm install sweetalert2`
+import Swal from "sweetalert2";
+import "../Styles/Trainees.css";
 
 const AddTrainees = () => {
   const [formData, setFormData] = useState({
@@ -109,7 +110,14 @@ const AddTrainees = () => {
   };
 
   return (
-    <Box sx={{ margin: "0 auto", backgroundColor: "#fff", padding: "30px", borderRadius: "10px" }}>
+    <Box
+      sx={{
+        margin: "0 auto",
+        backgroundColor: "#fff",
+        padding: "30px",
+        borderRadius: "10px",
+      }}
+    >
       <Grid container spacing={3}>
         <Grid item xs={6}>
           <TextField
@@ -266,15 +274,20 @@ const AddTrainees = () => {
             }}
           />
         </Grid>
-        <Grid item xs={12} style={{ display: "flex", justifyContent: "center" }}>
-          <Button
+        <Grid
+          item
+          xs={12}
+          style={{ display: "flex", justifyContent: "center" }}
+        >
+          <button
+            className="add-trainee-button"
             onClick={handleSubmit}
             color="primary"
             variant="contained"
             sx={{ width: "200px" }}
           >
-            Add Trainee
-          </Button>
+            ADD TRAINEE
+          </button>
         </Grid>
       </Grid>
     </Box>

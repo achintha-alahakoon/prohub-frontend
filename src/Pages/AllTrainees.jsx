@@ -169,7 +169,7 @@ const AllInterns = () => {
   const filteredInterns = interns.filter((intern) => intern.status === "true");
 
   return (
-    <div className="all-interns-container">
+    <div className="all-interns-container" style={{ backgroundColor: "white", padding: "20px", borderRadius: "10px" }}>
       <Box sx={{ height: 550, width: "95%", margin: "auto" }}>
         <DataGrid
           rows={filteredInterns}
