@@ -1,0 +1,62 @@
+.container {
+    background-color: white;
+    padding: 16px;
+    border-radius: 10px;
+    height: 470px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .scrollable {
+    height: 100%;
+    margin-top: 10px;
+    padding-left: 5px;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+  
+  .scrollable::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .card {
+    display: flex;
+    height: 55px;
+    margin-bottom: 16px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: #f0f2f5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  
+  .card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .checkbox .MuiSvgIcon-root {
+    font-size: 16px;
+  }
+  
+  .checkbox:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+  
+  .view-button {
+    background-color: #1450a3;
+    color: white;
+    font-size: 12px;
+  }
+  
+  .view-button:hover {
+    background-color: #1976d2;
+  }
+  
+  .typography {
+    font-weight: normal;
+    font-size: 14px;
+  }
+  

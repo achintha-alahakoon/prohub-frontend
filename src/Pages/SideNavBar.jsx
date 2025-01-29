@@ -5,6 +5,7 @@ import MenuList from "../Components/MenuList";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import ToggleThemeButton from "../Components/ToggleThemeButton";
 import Dashboard from "./Dashboard";
+import AdminPanel from "./AdminPanel";
 import AllTrainees from "./AllTrainees";
 import AddTrainnes from "./AddTrainnes";
 import AllInternships from "./AllInternships";
@@ -42,6 +43,7 @@ const SideNavBar = () => {
 
   const menuTitles = {
     dashboard: "Dashboard",
+    admin: "Admin Panel",
     allTrainees: "All Trainees",
     addTrainees: "Add Trainees",
     allInternships: "All Internships",
@@ -52,6 +54,8 @@ const SideNavBar = () => {
     switch (activeMenu) {
       case "dashboard":
         return <Dashboard />;
+      case "admin":
+        return <AdminPanel />;
       case "allTrainees":
         return <AllTrainees />;
       case "addTrainees":
@@ -106,7 +110,7 @@ const SideNavBar = () => {
           
         </Header>
 
-        <Content style={{ padding: "24px", background: "#f0f2f5" }}>
+        <Content style={{ padding: "24px", background: "#f9f9f9" }}>
           {renderContent()}
         </Content>
       </Layout>
