@@ -22,7 +22,6 @@ const Review = () => {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-      <h2>Review & Select</h2>
       <ReviewComponent selectedCVs={selectedCVs} setSelectedCVs={setSelectedCVs} />
       <div className="download-btn" style={{ textAlign: "right", marginRight: "20px" }}>
         <button

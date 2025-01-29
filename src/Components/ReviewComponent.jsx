@@ -1,5 +1,14 @@
-import React from "react";
-import { Box, Button, Typography, Card, CardContent, Checkbox, FormControlLabel } from "@mui/material";
+import React, { useState } from "react";
+import {
+  Box,
+  Button,
+  Typography,
+  Card,
+  CardContent,
+  Checkbox,
+  FormControlLabel,
+  TextField,
+} from "@mui/material";
 import "../Styles/ReviewComponent.css";
 
 const ReviewComponent = ({ selectedCVs, setSelectedCVs }) => {
@@ -9,6 +18,9 @@ const ReviewComponent = ({ selectedCVs, setSelectedCVs }) => {
     { id: 3, name: "Deemantha Bandara", resumeLink: "/path/to/alice_brown_resume.pdf" },
   ];
 
+  const [searchText, setSearchText] = useState("");
+  const [filteredCVs, setFilteredCVs] = useState(receivedCVs);
+
   const handleCheckboxChange = (id) => {
     setSelectedCVs((prev) =>
       prev.includes(id) ? prev.filter((cvId) => cvId !== id) : [...prev, id]
@@ -17,57 +29,78 @@ const ReviewComponent = ({ selectedCVs, setSelectedCVs }) => {
 
   const handleSelectAll = (e) => {
     if (e.target.checked) {
-      setSelectedCVs(receivedCVs.map((cv) => cv.id));
+      setSelectedCVs(filteredCVs.map((cv) => cv.id));
     } else {
       setSelectedCVs([]);
     }
   };
 
-  return (
-    <Box className="container">
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={selectedCVs.length === receivedCVs.length}
-            indeterminate={
-              selectedCVs.length > 0 && selectedCVs.length < receivedCVs.length
-            }
-            onChange={handleSelectAll}
-            className="checkbox"
-          />
-        }
-        label="Select All"
-        sx={{ fontSize: "14px", fontWeight: "bold" }}
-      />
+  const handleSearch = (e) => {
+    const searchValue = e.target.value.toLowerCase();
+    setSearchText(searchValue);
+    setFilteredCVs(
+      receivedCVs.filter((cv) => cv.name.toLowerCase().includes(searchValue))
+    );
+  };
 
-      <Box className="scrollable">
-        {receivedCVs.map((cv) => (
-          <Card key={cv.id} className="card">
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={selectedCVs.includes(cv.id)}
-                  onChange={() => handleCheckboxChange(cv.id)}
-                  className="checkbox"
-                />
-              }
-              label=""
-            />
-            <CardContent sx={{ flex: 1 }}>
-              <Typography className="typography">{cv.name}</Typography>
-            </CardContent>
-            <Button
-              variant="contained"
-              size="small"
-              onClick={() => window.open(cv.resumeLink, "_blank")}
-              className="view-button"
-            >
-              View
-            </Button>
-          </Card>
-        ))}
+  return (
+    <div>
+      <Box display="flex" justifyContent="space-between" alignItems="center" ml={1} mr={1}>
+        <h2>Review & Select</h2>
+        <TextField
+          label="Search by Name"
+          variant="outlined"
+          size="small"
+          value={searchText}
+          onChange={handleSearch}
+          className="search-bar"
+        />
       </Box>
-    </Box>
+      <Box className="container">
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={selectedCVs.length === filteredCVs.length}
+              indeterminate={
+                selectedCVs.length > 0 && selectedCVs.length < filteredCVs.length
+              }
+              onChange={handleSelectAll}
+              className="checkbox"
+            />
+          }
+          label="Select All"
+          sx={{ fontSize: "14px", fontWeight: "bold" }}
+        />
+
+        <Box className="scrollable">
+          {filteredCVs.map((cv) => (
+            <Card key={cv.id} className="card" sx={{ backgroundColor: "#f0f2f5" }}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={selectedCVs.includes(cv.id)}
+                    onChange={() => handleCheckboxChange(cv.id)}
+                    className="checkbox"
+                  />
+                }
+                label=""
+              />
+              <CardContent sx={{ flex: 1 }}>
+                <Typography className="typography">{cv.name}</Typography>
+              </CardContent>
+              <button
+                variant="contained"
+                size="small"
+                onClick={() => window.open(cv.resumeLink, "_blank")}
+                className="view-button"
+              >
+                View
+              </button>
+            </Card>
+          ))}
+        </Box>
+      </Box>
+    </div>
   );
 };
 

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Box, Button } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 
 const getColumns = () => [
   { field: "id", headerName: "ID", width: 95 },
@@ -87,22 +87,64 @@ const rows = [
 ];
 
 const ViewGrid = () => {
+  const [searchText, setSearchText] = useState("");
+  const [filteredRows, setFilteredRows] = useState(rows);
+
+  const handleSearch = (e) => {
+    const searchValue = e.target.value.toLowerCase();
+    setSearchText(searchValue);
+
+    const filtered = rows.filter((row) =>
+      row.name.toLowerCase().includes(searchValue)
+    );
+    setFilteredRows(filtered);
+  };
+
   return (
-    <Box sx={{ height: 500, width: "100%", backgroundColor: "white", borderRadius: "10px", padding: "20px" }}>
-      <DataGrid
-        rows={rows}
-        columns={getColumns()}
-        getRowHeight={() => 75}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-            },
-          },
+    <div>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginLeft: "20px",
+          marginRight: "20px",
         }}
-        pageSizeOptions={[5, 10, 25, 50]}
-      />
-    </Box>
+      >
+        <h2>View Applications</h2>
+        <TextField
+          label="Search by Name"
+          variant="outlined"
+          size="small"
+          value={searchText}
+          onChange={handleSearch}
+          sx={{ width: "250px" }}
+        />
+      </Box>
+      <Box
+        sx={{
+          height: 500,
+          width: "100%",
+          backgroundColor: "white",
+          borderRadius: "10px",
+          padding: "20px",
+        }}
+      >
+        <DataGrid
+          rows={filteredRows}
+          columns={getColumns()}
+          getRowHeight={() => 75}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
+              },
+            },
+          }}
+          pageSizeOptions={[5, 10, 25, 50]}
+        />
+      </Box>
+    </div>
   );
 };
 
