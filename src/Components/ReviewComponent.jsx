@@ -1,25 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
   Box,
-  Button,
-  Typography,
+  TextField,
   Card,
   CardContent,
   Checkbox,
   FormControlLabel,
-  TextField,
+  Typography,
 } from "@mui/material";
 import "../Styles/ReviewComponent.css";
 
 const ReviewComponent = ({ selectedCVs, setSelectedCVs }) => {
-  const receivedCVs = [
-    { id: 1, name: "Achintha Alahakoon", resumeLink: "/path/to/john_doe_resume.pdf" },
-    { id: 2, name: "Kavindu Janojya", resumeLink: "/path/to/jane_smith_resume.pdf" },
-    { id: 3, name: "Deemantha Bandara", resumeLink: "/path/to/alice_brown_resume.pdf" },
-  ];
-
+  const [cvList, setCvList] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const [filteredCVs, setFilteredCVs] = useState(receivedCVs);
+  const [filteredCVs, setFilteredCVs] = useState([]);
+
+  useEffect(() => {
+    const fetchCVs = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/api/applicants", {
+          auth: {
+            username: "admin",
+            password: "admin123",
+          },
+        });
+        setCvList(response.data);
+        setFilteredCVs(response.data);
+      } catch (error) {
+        console.error("Error fetching CVs:", error);
+      }
+    };
+
+    fetchCVs();
+  }, []);
 
   const handleCheckboxChange = (id) => {
     setSelectedCVs((prev) =>
@@ -39,7 +53,7 @@ const ReviewComponent = ({ selectedCVs, setSelectedCVs }) => {
     const searchValue = e.target.value.toLowerCase();
     setSearchText(searchValue);
     setFilteredCVs(
-      receivedCVs.filter((cv) => cv.name.toLowerCase().includes(searchValue))
+      cvList.filter((cv) => cv.name.toLowerCase().includes(searchValue))
     );
   };
 
@@ -91,7 +105,7 @@ const ReviewComponent = ({ selectedCVs, setSelectedCVs }) => {
               <button
                 variant="contained"
                 size="small"
-                onClick={() => window.open(cv.resumeLink, "_blank")}
+                onClick={() => window.open(`http://localhost:8080/uploads/${cv.cvFilePath.split('/').pop()}`, "_blank")}
                 className="view-button"
               >
                 View

@@ -4,19 +4,31 @@ import ReviewComponent from "../Components/ReviewComponent";
 const Review = () => {
   const [selectedCVs, setSelectedCVs] = useState([]);
 
-  const handleDownloadSelected = () => {
-    selectedCVs.forEach((cvId) => {
-     
-      const resumeLinks = {
-        1: "/path/to/john_doe_resume.pdf",
-        2: "/path/to/jane_smith_resume.pdf",
-        3: "/path/to/alice_brown_resume.pdf",
-      };
+  const handleDownloadSelected = async () => {
+    selectedCVs.forEach(async (cvId) => {
+      try {
+        const response = await fetch(`http://localhost:8080/api/applicants/${cvId}/download`, {
+          method: "GET",
+          headers: {
+            Authorization: "Basic " + btoa("admin:admin123"),
+          },
+        });
 
-      const link = document.createElement("a");
-      link.href = resumeLinks[cvId];
-      link.download = `resume_${cvId}.pdf`;
-      link.click();
+        console.log(response);
+        if (!response.ok) {
+          throw new Error(`Failed to download CV with ID ${cvId}`);
+        }
+
+        const blob = await response.blob();
+        const link = document.createElement("a");
+        link.href = window.URL.createObjectURL(blob);
+        link.download = `resume_${cvId}.pdf`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } catch (error) {
+        console.error("Download error:", error);
+      }
     });
   };
 

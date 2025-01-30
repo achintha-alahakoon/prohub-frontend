@@ -1,102 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button, TextField } from "@mui/material";
+import axios from "axios";
 
 const getColumns = () => [
   { field: "id", headerName: "ID", width: 95 },
   { field: "name", headerName: "Name", width: 170 },
   {
     field: "contactDetails",
-    headerName: "Mobile / Email / Address",
+    headerName: "Mobile / Email",
     width: 200,
     renderCell: (params) => (
       <div style={{ lineHeight: 1.6 }}>
-        <div>{params.row.mobile}</div>
+        <div>{params.row.phone}</div>
         <div>{params.row.email}</div>
-        <div>{params.row.address}</div>
       </div>
     ),
   },
-  { field: "resume", headerName: "Resume", width: 140 },
-  {
-    field: "status",
-    headerName: "Status",
-    width: 100,
-    renderCell: (params) => {
-      const getStatusColor = (status) => {
-        switch (status) {
-          case "Pending":
-            return "#FFC107";
-          case "Accepted":
-            return "green";
-          case "Rejected":
-            return "red";
-          default:
-            return "gray";
-        }
-      };
-
-      return (
-        <Button
-          variant="contained"
-          size="small"
-          sx={{
-            backgroundColor: getStatusColor(params.row.status),
-            color: "white",
-            "&:hover": {
-              backgroundColor: getStatusColor(params.row.status),
-              opacity: 0.8,
-            },
-          }}
-        >
-          {params.row.status}
-        </Button>
-      );
-    },
-  },
-];
-
-const rows = [
-  {
-    id: 1,
-    name: "Achintha Alahakoon",
-    mobile: "0703212590",
-    email: "achintha@gmail.com",
-    address: "Eheliyagoda",
-    resume: "View Resume",
-    status: "Pending",
-  },
-  {
-    id: 2,
-    name: "Kavindu Janojya",
-    mobile: "0703212590",
-    email: "kavindu@gmail.com",
-    address: "Mathara",
-    resume: "View Resume",
-    status: "Accepted",
-  },
-  {
-    id: 3,
-    name: "Deemantha Bandara",
-    mobile: "0703212590",
-    email: "deemantha@gmail.com",
-    address: "Kandy",
-    resume: "View Resume",
-    status: "Rejected",
-  },
+  { field: "uploadedAt", headerName: "Uploaded At", width: 180 },
 ];
 
 const ViewGrid = () => {
   const [searchText, setSearchText] = useState("");
-  const [filteredRows, setFilteredRows] = useState(rows);
+  const [rows, setRows] = useState([]);
+  const [filteredRows, setFilteredRows] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/api/applicants", {
+          headers: {
+            Authorization: "Basic " + btoa("admin:admin123"),
+          },
+        });
+        setRows(response.data);
+        setFilteredRows(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const handleSearch = (e) => {
     const searchValue = e.target.value.toLowerCase();
     setSearchText(searchValue);
-
-    const filtered = rows.filter((row) =>
-      row.name.toLowerCase().includes(searchValue)
-    );
+    
+    const filtered = rows.filter((row) => row.name.toLowerCase().includes(searchValue));
     setFilteredRows(filtered);
   };
 
@@ -133,7 +83,7 @@ const ViewGrid = () => {
         <DataGrid
           rows={filteredRows}
           columns={getColumns()}
-          getRowHeight={() => 75}
+          getRowHeight={() => 60}
           initialState={{
             pagination: {
               paginationModel: {

@@ -1,24 +1,24 @@
 import { Box } from '@mui/material';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const AllInternships = () => {
-  const categories = [
-    "C#",
-    "PM",
-    "BA",
-    "DevOps",
-    "AI",
-    "UI/UX & Chatbot",
-    "Python",
-    "BCMS",
-    "PHP",
-    "Java",
-    "Powerprox",
-    "MERN",
-    "QA",
-    "VA",
-    "Network",
-  ];
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchInternships = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/api/jobs");
+        if (!response.ok) {
+          throw new Error("Failed to fetch internships");
+        }
+        const data = await response.json();
+        setCategories(data.map(job => job.title));
+      } catch (error) {
+        console.error("Error fetching internships:", error);
+      }
+    };
+    fetchInternships();
+  }, []);
 
   return (
     <Box
@@ -45,7 +45,7 @@ const AllInternships = () => {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            borderRadius: "15px",
+            borderRadius: "10px",
             boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
             padding: "16px",
             cursor: "pointer",

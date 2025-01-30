@@ -1,5 +1,7 @@
 import React from "react";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import CategotyCount from "../Components/CategotyCount";
+import { Padding } from "@mui/icons-material";
 
 const Dashboard = () => {
   return (
@@ -31,19 +33,6 @@ const Dashboard = () => {
           borderRadius: "15px",
         }}
       >
-        <Typography variant="h5" color="textPrimary" gutterBottom>
-          Welcome to the Dashboard
-        </Typography>
-        <Typography variant="body1" color="textSecondary">
-          Here you can view your statistics and manage your data.
-        </Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          style={{ marginTop: "16px" }}
-        >
-          Get Started
-        </Button>
       </Box>
 
       {/* ROW 2 */}
@@ -84,15 +73,10 @@ const Dashboard = () => {
         gridRow="span 2"
         style={{
           backgroundColor: "#ffffff",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
           borderRadius: "15px",
         }}
       >
-        <Typography variant="body1" color="textSecondary">
-          Statistics Overview
-        </Typography>
+        <CategotyCount />
       </Box>
       <Box
         gridColumn="span 6"
