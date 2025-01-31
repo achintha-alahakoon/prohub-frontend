@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import axios from "axios";
 
 const getColumns = () => [
   { field: "id", headerName: "ID", width: 95 },
-  { field: "name", headerName: "Name", width: 170 },
+  {
+    field: "name",
+    headerName: "Name",
+    width: 170,
+    renderCell: (params) => (
+      <div style={{ lineHeight: 1.6 }}>
+        {params.row.firstName} {params.row.lastName}
+      </div>
+    ),
+  },
   {
     field: "contactDetails",
     headerName: "Mobile / Email",
@@ -13,7 +22,8 @@ const getColumns = () => [
     renderCell: (params) => (
       <div style={{ lineHeight: 1.6 }}>
         <div>{params.row.phone}</div>
-        <div>{params.row.email}</div>
+        <div>{params.row.confirmEmail}</div>
+        <div>{params.row.placeOfResidence}</div>
       </div>
     ),
   },
@@ -28,7 +38,7 @@ const ViewGrid = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/applicants", {
+        const response = await axios.get("http://localhost:8080/applicants", {
           headers: {
             Authorization: "Basic " + btoa("admin:admin123"),
           },
@@ -46,7 +56,10 @@ const ViewGrid = () => {
     const searchValue = e.target.value.toLowerCase();
     setSearchText(searchValue);
     
-    const filtered = rows.filter((row) => row.name.toLowerCase().includes(searchValue));
+    const filtered = rows.filter((row) => {
+      const fullName = `${row.firstName} ${row.lastName}`.toLowerCase();
+      return fullName.includes(searchValue);
+    });
     setFilteredRows(filtered);
   };
 
@@ -83,7 +96,7 @@ const ViewGrid = () => {
         <DataGrid
           rows={filteredRows}
           columns={getColumns()}
-          getRowHeight={() => 60}
+          getRowHeight={() => 70}
           initialState={{
             pagination: {
               paginationModel: {

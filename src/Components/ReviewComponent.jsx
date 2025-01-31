@@ -19,7 +19,7 @@ const ReviewComponent = ({ selectedCVs, setSelectedCVs }) => {
   useEffect(() => {
     const fetchCVs = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/applicants", {
+        const response = await axios.get("http://localhost:8080/applicants", {
           auth: {
             username: "admin",
             password: "admin123",
@@ -53,7 +53,10 @@ const ReviewComponent = ({ selectedCVs, setSelectedCVs }) => {
     const searchValue = e.target.value.toLowerCase();
     setSearchText(searchValue);
     setFilteredCVs(
-      cvList.filter((cv) => cv.name.toLowerCase().includes(searchValue))
+      cvList.filter(
+        (cv) =>
+          `${cv.firstName} ${cv.lastName}`.toLowerCase().includes(searchValue)
+      )
     );
   };
 
@@ -100,12 +103,19 @@ const ReviewComponent = ({ selectedCVs, setSelectedCVs }) => {
                 label=""
               />
               <CardContent sx={{ flex: 1 }}>
-                <Typography className="typography">{cv.name}</Typography>
+                <Typography className="typography">
+                  {cv.firstName} {cv.lastName}
+                </Typography>
               </CardContent>
               <button
                 variant="contained"
                 size="small"
-                onClick={() => window.open(`http://localhost:8080/uploads/${cv.cvFilePath.split('/').pop()}`, "_blank")}
+                onClick={() =>
+                  window.open(
+                    `http://localhost:8080/uploads/${cv.cvFilePath.split('/').pop()}`,
+                    "_blank"
+                  )
+                }
                 className="view-button"
               >
                 View
