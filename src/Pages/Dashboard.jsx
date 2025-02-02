@@ -1,7 +1,5 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import CategotyCount from "../Components/CategotyCount";
-import { Padding } from "@mui/icons-material";
 
 const Dashboard = () => {
   return (
@@ -47,9 +45,6 @@ const Dashboard = () => {
           borderRadius: "15px",
         }}
       >
-        <Typography variant="h6" color="textPrimary">
-          Quick Access
-        </Typography>
       </Box>
       <Box
         gridColumn="span 4"
@@ -62,9 +57,6 @@ const Dashboard = () => {
           borderRadius: "15px",
         }}
       >
-        <Typography variant="h6" color="textPrimary">
-          Notifications
-        </Typography>
       </Box>
 
       {/* ROW 3 */}
@@ -76,7 +68,6 @@ const Dashboard = () => {
           borderRadius: "15px",
         }}
       >
-        <CategotyCount />
       </Box>
       <Box
         gridColumn="span 6"
@@ -89,9 +80,6 @@ const Dashboard = () => {
           borderRadius: "15px",
         }}
       >
-        <Typography variant="body1" color="textSecondary">
-          Recent Activities
-        </Typography>
       </Box>
     </Box>
   );
