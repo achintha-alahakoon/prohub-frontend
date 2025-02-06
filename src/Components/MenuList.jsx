@@ -4,7 +4,8 @@ import {
   AppstoreOutlined,
   SoundOutlined,
   UserOutlined,
-  AuditOutlined
+  AuditOutlined,
+  IdcardOutlined,
 } from "@ant-design/icons";
 
 const MenuList = ({ darkTheme, activeMenu, setActiveMenu }) => {
@@ -26,10 +27,17 @@ const MenuList = ({ darkTheme, activeMenu, setActiveMenu }) => {
         <Menu.Item key="allTrainees">All Trainees</Menu.Item>
         <Menu.Item key="addTrainees">Add Trainees</Menu.Item>
       </Menu.SubMenu>
-      <Menu.SubMenu key="internships" icon={<SoundOutlined />} title="Internships">
+      <Menu.SubMenu
+        key="internships"
+        icon={<SoundOutlined />}
+        title="Internships"
+      >
         <Menu.Item key="allInternships">All Internships</Menu.Item>
         <Menu.Item key="addInternships">Add Internships</Menu.Item>
       </Menu.SubMenu>
+      <Menu.Item key="attendance" icon={<IdcardOutlined />} title="Attendance">
+        Attendance
+      </Menu.Item>
     </Menu>
   );
 };

@@ -10,6 +10,7 @@ import AllTrainees from "./AllTrainees";
 import AddTrainnes from "./AddTrainnes";
 import AllInternships from "./AllInternships";
 import AddInternships from "./AddInternships";
+import Attendance from "./Attendance";
 import TopHeader from "../Components/TopHeader";
 import AvatarComponent from "../Components/AvatarComponent";
 import { NotificationsOutlined } from "@mui/icons-material";
@@ -48,6 +49,7 @@ const SideNavBar = () => {
     addTrainees: "Add Trainees",
     allInternships: "All Internships",
     addInternships: "Add Internships",
+    attendance: "Attendance",
   };
 
   const renderContent = () => {
@@ -64,6 +66,8 @@ const SideNavBar = () => {
         return <AllInternships />;
       case "addInternships":
         return <AddInternships />;
+      case "attendance":
+        return <Attendance />;
       default:
         return <Dashboard />;
     }

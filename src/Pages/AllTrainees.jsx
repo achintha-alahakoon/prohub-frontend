@@ -82,7 +82,14 @@ const AllInterns = () => {
   useEffect(() => {
     const fetchInterns = async () => {
       try {
-        const response = await fetch("http://localhost:8080/api/interns");
+        const response = await fetch("http://localhost:8080/api/interns" ,
+          {
+            method: "GET",
+            headers: {
+              Authorization: "Basic " + btoa("admin:admin123"),
+            },
+          }
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch interns.");
         }
@@ -91,7 +98,6 @@ const AllInterns = () => {
         setHasErrorOccurred(false);
       } catch (error) {
         if (!hasErrorOccurred) {
-          Swal.fire("Error", "Failed to fetch interns.", "error");
           setHasErrorOccurred(true);
         }
       }

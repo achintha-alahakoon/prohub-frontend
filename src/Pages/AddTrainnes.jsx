@@ -58,9 +58,10 @@ const AddTrainees = () => {
     }
 
     try {
-      fetch("http://localhost:8080/api/trainees", {
+      fetch("http://localhost:8080/api/interns", {
         method: "POST",
         headers: {
+          Authorization: "Basic " + btoa("admin:admin123"),
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
